@@ -1,0 +1,25 @@
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- link:
+    ~/.xinitrc: xinit/.xinitrc
+    ~/.config/alacritty: alacritty
+    ~/.config/fish: fish
+    ~/.config/nvim: nvim
+    ~/.config/sxhkd: sxhkd
+    ~/.config/lemonbar: lemonbar
+    ~/.config/bspwm: bspwm
+
+
+- create:
+    - ~/downloads
+    - ~/pictures
+    - ~/work
+    - ~/projects
+
+# - shell:
+#     - [git submodule update --init --recursize, Installing Submodules]
+
+
