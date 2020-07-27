@@ -2,24 +2,36 @@
 
 source $HOME/.config/lemonbar/colors.fish
 
+# make key bindings
 sxhkd &
 
+# window manager config options
 bspc monitor -d I II III IV V VI VII VIII IX X
+
+bspc config automatic_scheme alternate
+bspc config initial_polarity second_child
 
 bspc config border_width         2
 bspc config window_gap           8
 bspc config normal_border_color  $BACKGROUND
 bspc config focused_border_color $BRIGHT_BLACK
 
-bspc config split_ratio          0.52
+bspc config split_ratio          0.50
+
+# If only one window is open, it is full screen with no borders or gaps
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config single_monocle       true
 
+# Mouse actions
+bspc config pointer_modifier     mod4 # super key
+bspc config pointer_action1      resize_corner # left click resizes
+bspc config pointer_action3      move # right click moves
 
-
+# set the wallpaper
 feh --bg-fill $HOME/wallpapers/zentree.png &
 
+# start up the panel
 $HOME/.config/lemonbar/lemonbar.fish | 
 lemonbar -p -g x24 -B$BACKGROUND -F$FOREGROUND -o 0 -f "Iosevka:size=11" -o -2 -f "Font Awesome 5 Free:size=11" |
 sh

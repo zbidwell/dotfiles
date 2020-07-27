@@ -8,6 +8,7 @@ set encoding=utf8
 set number
 set relativenumber
 set colorcolumn=100
+set signcolumn=yes
 
 set tabstop=4
 set softtabstop=4
@@ -29,30 +30,48 @@ let mapleader = "\<space>"
 filetype plugin indent on
 
 call plug#begin('~/.local/share/nvim/plugged')
-    Plug 'morhetz/gruvbox'
 
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
 
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } 
-    let g:LanguageClient_serverCommands = { 'rust': ['rust-analyzer'] }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rust-analyzer'],
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ }
 
-    Plug 'itchyny/lightline.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
 
-    Plug 'dag/vim-fish'
+Plug 'Chiel92/vim-autoformat'
+Plug 'jiangmiao/auto-pairs'
 
-    Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'itchyny/lightline.vim'
 
-    Plug 'tpope/vim-commentary'
+Plug 'dag/vim-fish'
+Plug 'cespare/vim-toml'
+Plug 'othree/html5.vim'
+Plug 'alvan/vim-closetag'
+Plug 'vmchale/just-vim'
+
+Plug 'deoplete-plugins/deoplete-jedi'
+
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 highlight Normal ctermbg=none
 let g:lightline = { 'colorscheme': 'gruvbox' }
+
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+" run rustfmt on save for rust files
+autocmd BufWritePre *.rs :Autoformat
 
 " fzf ripgrep search
 nnoremap <silent> <Leader>r :Rg<CR>
@@ -62,6 +81,11 @@ nnoremap <silent> <Leader>f :Files<CR>
 " tab support for autocomplete
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+nmap <F5> <Plug>(lcn-menu)
+nmap gd <Plug>(lcn-definition)
+nmap <Leader>k <Plug>(lcn-hover)
+nmap <F2> <Plug>(lcn-rename)
 
 " turn off search highlighting
 nnoremap <silent> <Leader>h :nohlsearch<CR>
