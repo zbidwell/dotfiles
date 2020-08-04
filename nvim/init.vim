@@ -32,6 +32,7 @@ filetype plugin indent on
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -63,9 +64,10 @@ Plug 'tpope/vim-commentary'
 call plug#end()
 
 let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+colorscheme seoul256
+set background=dark
 highlight Normal ctermbg=none
-let g:lightline = { 'colorscheme': 'gruvbox' }
+let g:lightline = { 'colorscheme': 'seoul256' }
 
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
