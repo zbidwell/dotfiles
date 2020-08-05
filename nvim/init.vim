@@ -4,11 +4,15 @@ set hidden
 set mouse=a
 set nowrap
 set encoding=utf8
+set nobackup
+set nowritebackup
+set termguicolors
 
 set number
 set relativenumber
 set colorcolumn=100
 set signcolumn=yes
+set updatetime=300
 
 set tabstop=4
 set softtabstop=4
@@ -31,42 +35,28 @@ filetype plugin indent on
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rust-analyzer'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ }
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = ['coc-rust-analyzer']
 
 Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'dag/vim-fish'
-Plug 'cespare/vim-toml'
-Plug 'othree/html5.vim'
-Plug 'alvan/vim-closetag'
-Plug 'vmchale/just-vim'
-
-Plug 'deoplete-plugins/deoplete-jedi'
-
 Plug 'tpope/vim-commentary'
 
 call plug#end()
 
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme seoul256
+" Colorscheme settings
 set background=dark
-highlight Normal ctermbg=none
+" darker than default bg
+let g:seoul256_background=234
+colorscheme seoul256
 let g:lightline = { 'colorscheme': 'seoul256' }
 
 let g:autoformat_autoindent = 0
@@ -83,11 +73,14 @@ nnoremap <silent> <Leader>f :Files<CR>
 " tab support for autocomplete
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-nmap <F5> <Plug>(lcn-menu)
-nmap gd <Plug>(lcn-definition)
-nmap <Leader>k <Plug>(lcn-hover)
-nmap <F2> <Plug>(lcn-rename)
+" language server commands
+nmap gd <Plug>(coc-definition)
+nmap <silent> <Leader>k :call CocAction('doHover')<CR>
+nmap <Leader>e :CocList diagnostics<CR>
+nmap <F2> <Plug>(coc-rename)
+nmap <F5> :CocList<CR> 
 
 " turn off search highlighting
 nnoremap <silent> <Leader>h :nohlsearch<CR>
@@ -108,6 +101,6 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
-" shift lines up or down
+" shift line up or down
 nnoremap <silent> <C-j> :m +1<CR>
 nnoremap <silent> <C-k> :m -2<CR>
