@@ -11,6 +11,9 @@ font:
         family: Iosevka
         size: 11.0
 
+cursor:
+    style: Block
+
 # # Colors (Gruvbox dark)
 # colors:
 #     # Default colors
