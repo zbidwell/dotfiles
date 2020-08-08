@@ -5,6 +5,7 @@
 
 - link:
     ~/.xinitrc: xinit/.xinitrc
+    ~/.gitconfig: git/.gitconfig
     ~/.config/alacritty: alacritty
     ~/.config/fish: fish
     ~/.config/nvim: nvim
