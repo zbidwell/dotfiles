@@ -11,5 +11,5 @@ function ll
 end
 
 function tree
-    exa -l --tree $argv
+    exa -l --tree --git $argv
 end
