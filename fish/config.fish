@@ -3,7 +3,7 @@ thefuck --alias | source
 set -x PATH $HOME/.cargo/bin:$PATH
 
 function l
-    exa -la $argv
+    exa -la --git $argv
 end
 
 function ll
